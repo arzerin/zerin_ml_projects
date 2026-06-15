@@ -1,0 +1,23 @@
+# https://docs.google.com/document/d/1IRyxxjCt5lMTlFXA7n3oYmEOWxKJQrvyo2VcEQ5xj7Y/edit?usp=sharing
+# 
+https://discuss.streamlit.io/t/best-practices-for-building-genai-apps-with-streamlit/113364
+
+#https://docs.snowflake.com/en/developer-guide/streamlit/getting-started/overview
+
+#https://medium.com/snowflake/overview-of-snowsight-snowflakes-web-interface-c32d42e546ba
+
+#https://www.youtube.com/watch?v=9CrZizlsUdk
+
+https://github.com/https-deeplearning-ai/fast-prototyping-of-genai-apps-with-streamlit/tree/main
+
+streamlit run app.py
+# specific port
+streamlit run app.py --server.port 8502
+
+# Run on all network interfaces:
+streamlit run app.py --server.address 0.0.0.0
+
+# Clear cache:
+streamlit cache clear
+
+ 

@@ -1,0 +1,45 @@
+SnowFlake SQL:
+LIST @AVALANCHE_DB.AVALANCHE_SCHEMA.AVALANCH_STAGE
+
+SELECT COUNT(*) FROM DIRECTORY(@AVALANCHE_DB.AVALANCHE_SCHEMA.AVALANCHE_STAGE);
+
+CREATE OR REPLACE TABLE raw_customer_reviews AS
+SELECT
+    RELATIVE_PATH AS FILENAME,
+
+    SNOWFLAKE.CORTEX.PARSE_DOCUMENT(
+        '@AVALANCHE_STAGE',
+        RELATIVE_PATH
+    ) AS EXTRACTED_CONTENT
+
+FROM DIRECTORY('@AVALANCHE_STAGE')
+WHERE RELATIVE_PATH ILIKE '%.docx';
+
+SELECT 
+  filename,
+  extracted_content
+FROM raw_customer_reviews
+LIMIT 3;
+
+from snowflake.snowpark.context import get_active_session
+
+
+session.sql("USE DATABASE AVALANCHE_DB").collect()
+session.sql("USE SCHEMA AVALANCHE_SCHEMA").collect()
+
+stage_path = '@"AVALANCHE_DB"."AVALANCHE_SCHEMA"."AVALANCHE_STAGE"/customer_reviews.csv'
+
+df = (
+    session.read
+    .option("field_delimiter", ",")
+    .option("skip_header", 1)
+    .option("infer_schema", True)
+    .csv(stage_path)
+)
+
+df.show()
+
+========================================================================================================
+
+
+========================================================================================================
